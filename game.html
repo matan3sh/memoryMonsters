@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Game Page</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/game.css" />
+  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<header class="myNav">
+    <h1>Coding Academy - <span>Memory Monsters</span></h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="game.html">Game</a></li>
+            <li><a href="https://matanshaviro.herokuapp.com/" target="_blank">Portfolio</a></li>
+            <li><a href="cv.html">CV</a></li>
+        </ul>
+        <img src="img/layout/logo.png">
+    </nav>
+</header>
+
+<body>
+  <div class="welcome-headline">
+    <h2></h2>
+  </div>
+  <div class='main-area'>
+    <div id='game-container'>
+      <div class="card" data-card="1" onclick="cardClicked(this)">
+        <img src="img/cards/1.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="1" onclick="cardClicked(this)">
+        <img src="img/cards/1.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="5" onclick="cardClicked(this)">
+        <img src="img/cards/5.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="5" onclick="cardClicked(this)">
+        <img src="img/cards/5.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="2" onclick="cardClicked(this)">
+        <img src="img/cards/2.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="3" onclick="cardClicked(this)">
+        <img src="img/cards/3.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="2" onclick="cardClicked(this)">
+        <img src="img/cards/2.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="card" data-card="3" onclick="cardClicked(this)">
+        <img src="img/cards/3.png">
+        <img class="back" src="img/cards/back.png">
+      </div>
+      <div class="buttons" id='welcome'>
+        <button class='user-name'></button>
+        <button id='start' onclick="changeUsername()">Start</button>
+      </div>
+    </div>
+    <div class="best-game-time">
+      <h2></h2>
+    </div>
+    
+  </div>
+  <script src="js/game.js"></script>
+</body>
+
+</html>

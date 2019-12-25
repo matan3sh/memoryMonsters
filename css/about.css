@@ -1,0 +1,23 @@
+.about p {
+    font-family: 'Open Sans', sans-serif;
+    content: "";
+    display: table;
+    clear: both;
+    color: white;
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: center;
+}
+
+#about-container {
+    height: 100%;
+    background-color: #282828;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 20px;
+    margin: auto;
+    width: 28%;
+}
