@@ -22,21 +22,28 @@ var startBtn = document.querySelector('#start');
 var userNameBtn = document.querySelector('.user-name');
 var welcomeText = document.querySelector('.welcome-headline h2');
 
-userNameBtn.onclick = function() {
+var hideShowBtn = document.querySelector('#hideShow');
+var flag = false;
+
+hideShowBtn.onClick = function () {
+    hideShowAll();
+}
+
+userNameBtn.onclick = function () {
     changeUsername();
 }
-startBtn.onclick = function() {
+startBtn.onclick = function () {
     startToPlay();
 }
 window.onload = insertUsername;
 
 function insertUsername() {
     // fetching the username from localstorage
-    var storedUsername = localStorage.getItem('name'); 
+    var storedUsername = localStorage.getItem('name');
 
     // checked if the localstorage is empty
-    if((storedUsername !== null) && (storedUsername !== '')) {
-        welcomeText.textContent="Welcomeback, " + storedUsername + "!";
+    if ((storedUsername !== null) && (storedUsername !== '')) {
+        welcomeText.textContent = "Welcomeback, " + storedUsername + "!";
     } else {
         var myName; // var to keep user input
 
@@ -49,12 +56,12 @@ function insertUsername() {
     }
 
     // welcome the user headline and change buttons content
-    welcomeText.style.visibility = 'visible'; 
+    welcomeText.style.visibility = 'visible';
     userNameBtn.textContent = 'Change User';
     startBtn.style.visibility = 'visible';
 }
 
-function changeUsername(){
+function changeUsername() {
     var myName = '';
     do {
         myName = prompt('Please Enter Your Name:')
@@ -67,35 +74,35 @@ function changeUsername(){
 }
 
 function startToPlay() {
-    if( (endGame === false) && (firstTime) ) {                        
+    if ((endGame === false) && (firstTime)) {
         console.log(endGame + " start to play");
         cardGameField.style.visibility = 'visible'; // first time see the cardGameField 
         startBtn.textContent = 'Play Again';     // change the button's name 
 
     } else {
-        endGame = false;                          
+        endGame = false;
         var flippedCard = document.querySelectorAll('.flipped');
 
         // Cover all the cards
         for (var i = 0; i < flippedCard.length; ++i) {
             flippedCard[i].classList.remove('flipped');
         }
-        firstTime = true;    
+        firstTime = true;
         flippedCouplesCount = 0;
     }
-} 
+}
 
 // This function is called whenever the user click a card
 function cardClicked(elCard) {
-    
+
     // Start timer on the first time the user clicks a card
     if (firstTime) {
         firstCardTime = Date.now();
         firstTime = false;
     }
-    
+
     //if this is a processing of match - do nothing and return from the function
-    if(isProcessing){
+    if (isProcessing) {
         return;
     }
 
@@ -116,16 +123,16 @@ function cardClicked(elCard) {
         var card2 = elCard.getAttribute('data-card');
 
         // No match, schedule to flip them back in 1 second
-        if (card1 !== card2){
+        if (card1 !== card2) {
             audioWrong.play();
             isProcessing = true; //true while the user try to flippe cards (bug fixed in task4)
-            setTimeout(function(){
+            setTimeout(function () {
                 elCard.classList.remove('flipped');
                 elPreviousCard.classList.remove('flipped');
                 elPreviousCard = null;
                 isProcessing = false;
             }, 1000)
-             
+
         } else {
             // Yes! a match!
             audioRight.play();
@@ -137,16 +144,16 @@ function cardClicked(elCard) {
                 endGame = true;
                 calcGameTime();
                 calcBestTime();
-                setTimeout(function(){
+                setTimeout(function () {
                     audioWin.play();
-                },2000);   
+                }, 2000);
             }
         }
     }
 }
 
 function saveGameTime() {
-    localStorage.setItem('gameTime', gameTime); 
+    localStorage.setItem('gameTime', gameTime);
 }
 
 function calcGameTime() {
@@ -156,16 +163,16 @@ function calcGameTime() {
 function calcBestTime() {
     // fetching the score record from localstorage
     var storedGameTime = localStorage.getItem('gameTime');
-    
+
     if (storedGameTime === null) {
         saveGameTime();
         document.querySelector('.best-game-time h2').innerHTML = ("Your best time is " + formatMSecToTimeStr(gameTime));
     } else {
-        if(storedGameTime > gameTime) {
+        if (storedGameTime > gameTime) {
             saveGameTime();
-            document.querySelector('.best-game-time h2').innerHTML =  ("Your best time is " + formatMSecToTimeStr(gameTime));
+            document.querySelector('.best-game-time h2').innerHTML = ("Your best time is " + formatMSecToTimeStr(gameTime));
         } else {
-            document.querySelector('.best-game-time h2').innerHTML =  ("Your best time is " + formatMSecToTimeStr(storedGameTime));
+            document.querySelector('.best-game-time h2').innerHTML = ("Your best time is " + formatMSecToTimeStr(storedGameTime));
         }
     }
 
@@ -174,6 +181,35 @@ function calcBestTime() {
 function formatMSecToTimeStr(mSec) {
     var hours = Math.floor(mSec / (60 * 60 * 1000));
     var mins = Math.floor(((mSec - (hours * 60 * 60 * 1000)) / (60 * 1000)));
-    var secs = Math.floor(((mSec - (hours * 60 * 60 * 1000) - (mins * 60 * 1000)) / 1000)); 
+    var secs = Math.floor(((mSec - (hours * 60 * 60 * 1000) - (mins * 60 * 1000)) / 1000));
     return (hours + ':' + mins + ':' + secs);
+}
+
+// Personal Interview Excersice
+function hideAll() {
+    var flippedCard = document.querySelectorAll('.flipped');
+    for (var i = 0; i < flippedCard.length; ++i) {
+        if (flippedCard[i].classList.contains('flipped')) {
+            flippedCard[i].classList.remove('flipped')
+        }
+    }
+}
+
+function showAll() {
+    var flippedCard = document.querySelectorAll('.card');
+    for (var i = 0; i < flippedCard.length; ++i) {
+        flippedCard[i].classList.add('flipped')
+    }
+}
+
+function hideShowAll() {
+    if ((flag === false)) {
+        hideShowBtn.textContent = 'Show All';     // change the button's name 
+        hideAll();
+        flag = true;
+    } else {
+        hideShowBtn.textContent = 'Hide All';     // change the button's name    
+        showAll()
+        flag = false;
+    }
 }
